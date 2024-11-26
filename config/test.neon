@@ -1,0 +1,68 @@
+services:
+
+	first: Test\Test\First
+	second: Test\Test\Second
+	third: Test\Test\Third
+
+	test:
+		class: Test\Test\Test
+		arguments:
+
+			- Test\Test\First::Constant
+			- Test\Test\First::$staticProperty
+			- ::constant('GlobalConstant')
+#
+			- @first::Constant
+			- @first::property
+			- @first::$staticProperty
+			- @first::getValue()
+
+			- @first::getSecond()::Constant
+			- @first::getSecond()::property
+			- @first::getSecond()::$staticProperty
+			- @first::getSecond()::getValue()
+
+			- @first::$secondByStatic::Constant
+			- @first::$secondByStatic::property
+			- @first::$secondByStatic::$staticProperty
+			- @first::$secondByStatic::getValue()
+
+			- @first::$secondByStatic::getThird()::getValue()
+			- @first::$secondByStatic::third::property
+			- @first::$secondByStatic::$thirdByStatic::$staticProperty
+
+			- @first::getSecond()::getThird()::Constant
+			- @first::getSecond()::getThird()::property
+			- @first::getSecond()::getThird()::$staticProperty
+			- @first::getSecond()::getThird()::getValue()
+
+
+			- @first::second::getThird()::Constant
+			- @first::second::getThird()::property
+			- @first::second::getThird()::$staticProperty
+			- @first::second::getThird()::getValue()
+
+			- @first::second::Constant
+			- @first::second::property
+			- @first::second::$staticProperty
+			- @first::second::getValue()
+
+			- @first::second::third::Constant
+			- @first::second::third::property
+			- @first::second::third::$staticProperty
+			- @first::second::third::getValue()
+
+
+			- @first::getSecond()::third::Constant
+			- @first::getSecond()::third::property
+			- @first::getSecond()::third::$staticProperty
+			- @first::getSecond()::third::getValue()
+
+			- @first::getSecond()::getValueByStatic()
+
+
+		setup:
+			- $prop1 = @first::getSecond()::getThird()::getValue()
+			- $prop2 = @first::second::third::property
+			- $prop3 = @first::$secondByStatic::getThird()::getValue()
+			- setProperty(@first::$secondByStatic::getThird()::getValue('valuePassedByGetter'))
